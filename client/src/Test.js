@@ -8,11 +8,23 @@ import React, { Fragment } from 'react'
 */
 
 function Test() {
-  return (
-    <Fragment>
-        <h1>Test 컴포넌트입니다.</h1>    
-    </Fragment>
-  )
+
+    /*
+        JSX
+        1. CamelCase 원칙 : className 
+        2. js : {}
+        3. css, style : {{}} + object / js에서 ; 은 종결자를 의미하므로 사용하지 않는다
+    */
+
+    const Temp = 7;
+
+
+    return (
+        <Fragment>
+            <h1 className='test' style={{ fontSize: "3rem" }}>Test 컴포넌트입니다.</h1>
+            <h1>{Temp}</h1>
+        </Fragment>
+    )
 }
 
 export default Test
