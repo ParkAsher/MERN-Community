@@ -1,6 +1,4 @@
-import './App.css';
-import Test from './Test';
-
+import React, { Fragment, useState } from 'react';
 /*
     react-router-dom
 */
@@ -8,7 +6,7 @@ import { Routes, Route } from "react-router-dom"
 import Heading from './Component/Heading';
 import List from './Component/List';
 import Upload from './Component/Upload';
-import { Fragment } from 'react';
+
 
 function App() {
 
@@ -22,6 +20,8 @@ function App() {
 
         let Arr = [1, 2, 3]
     */
+
+    const [ContentList, setContentList] = useState([]);
 
     return (
         /*
@@ -42,8 +42,8 @@ function App() {
         <Fragment>
             <Heading></Heading>
             <Routes>
-                <Route path="/List" element={<List></List>}></Route>
-                <Route path="/Upload" element={<Upload></Upload>}></Route>
+                <Route path="/List" element={<List ContentList={ContentList} setContentList={setContentList}></List>}></Route>
+                <Route path="/Upload" element={<Upload ContentList={ContentList} setContentList={setContentList}></Upload>}></Route>
             </Routes>
 
         </Fragment>
