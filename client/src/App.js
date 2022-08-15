@@ -1,6 +1,15 @@
 import './App.css';
 import Test from './Test';
 
+/*
+    react-router-dom
+*/
+import { Routes, Route } from "react-router-dom"
+import Heading from './Component/Heading';
+import List from './Component/List';
+import Upload from './Component/Upload';
+import { Fragment } from 'react';
+
 function App() {
 
     /*
@@ -8,11 +17,14 @@ function App() {
         2. 반복문 : for              => map
     */
 
-    let flag = true;
+    /*    
+        let flag = true;
 
-    let Arr = [1, 2, 3]
+        let Arr = [1, 2, 3]
+    */
 
     return (
+        /*
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <h1>hello, react!</h1>
             {
@@ -26,6 +38,16 @@ function App() {
             }
             <Test></Test>
         </div>
+        */
+        <Fragment>
+            <Heading></Heading>
+            <Routes>
+                <Route path="/List" element={<List></List>}></Route>
+                <Route path="/Upload" element={<Upload></Upload>}></Route>
+            </Routes>
+
+        </Fragment>
+
     );
 }
 
