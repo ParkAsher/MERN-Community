@@ -11,6 +11,14 @@
 
     MongoDB : mongodb+srv://asherpark:gusals8665@cluster0.ixgntvl.mongodb.net/?retryWrites=true&w=majority
     npm i mongoose --save
+
+    서로다른 port들 끼리 통신을 하려면 cors이슈가 발생한다
+
+    클라이언트에서 서버단으로 데이터를 보내려면 axios를 사용
+
+    클라이언트에서 서버로 보내는 데이터를 읽기위해서 body-parser 필요
+    내장모듈로 바뀌어서 설치할 필요는 없다.
+
 */
 const express = require("express");
 const path = require("path");
@@ -20,6 +28,8 @@ const app = express();
 const port = 5000;
 
 app.use(express.static(path.join(__dirname, "../client/build")));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.listen(port, () => {
     mongoose.connect('mongodb+srv://asherpark:test123@cluster0.ixgntvl.mongodb.net/?retryWrites=true&w=majority').then(() => {
@@ -50,4 +60,11 @@ app.get("/", (req, res) => {
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/build/index.html"));
+})
+
+app.post("/api/test", (req, res) => {
+
+    console.log(req.body)
+
+    res.status(200).json({ success: true, text: "안녕하세요" });
 })
