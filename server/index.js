@@ -31,8 +31,14 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
+/*
+    model
+*/
+const { Post } = require('./Model/Post.js')
+
 app.listen(port, () => {
-    mongoose.connect('mongodb+srv://asherpark:test123@cluster0.ixgntvl.mongodb.net/?retryWrites=true&w=majority').then(() => {
+    mongoose.connect('mongodb+srv://asherpark:test123@cluster0.ixgntvl.mongodb.net/Community?retryWrites=true&w=majority').then(() => {
 
         // 연결 성공했을때
         console.log(`Example app listening at http://localhost:${port}`);
@@ -62,9 +68,27 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/build/index.html"));
 })
 
+/*
 app.post("/api/test", (req, res) => {
 
     console.log(req.body)
 
     res.status(200).json({ success: true, text: "안녕하세요" });
+})
+*?
+
+
+/*
+
+    1. POST MongoDB Model
+    2. Client Css (Bootstrap, Emotion)
+
+*/
+app.post("/api/test", (req, res) => {
+
+    const CommunityPost = new Post({ title: "Test", content: "테스트입니다." })
+
+    CommunityPost.save().then(() => {
+        res.status(200).json({ success: true, text: "안녕하세요" });
+    })
 })
