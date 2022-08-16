@@ -8,18 +8,34 @@
 
     npm i path --save
     npm i nodemon --save  : 코드가 고쳐질때마다 서버를 재실행하지 않아도 되는. package.json에서 "start" : "nodemon index.js" 로 수정.
+
+    MongoDB : mongodb+srv://asherpark:gusals8665@cluster0.ixgntvl.mongodb.net/?retryWrites=true&w=majority
+    npm i mongoose --save
 */
 const express = require("express");
 const path = require("path");
+const mongoose = require("mongoose");
+
 const app = express();
 const port = 5000;
 
 app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
-})
+    mongoose.connect('mongodb+srv://asherpark:test123@cluster0.ixgntvl.mongodb.net/?retryWrites=true&w=majority').then(() => {
 
+        // 연결 성공했을때
+        console.log(`Example app listening at http://localhost:${port}`);
+        console.log("Connecting MongoDB...");
+
+    }).catch((err) => {
+
+        // 실패 했을때
+        console.log(`${err}`);
+
+    });
+
+})
 /*
     "/" : URL
     req : 클라이언트 쪽에서 서버로 보내는 요청
@@ -31,3 +47,7 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/build/index.html"));
 })
 
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
+})
