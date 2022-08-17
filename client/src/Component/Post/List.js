@@ -1,44 +1,64 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { ListDiv, ListItem } from '../../Style/ListCss';
 
 function List(props) {
 
-    const [Text, setText] = useState("")
+    /*
+        const [Text, setText] = useState("")
+    
+
+        useEffect(() => {
+
+            let body = {
+                text: "hello",
+            }
+
+            axios.post("/api/test", body).then((response) => {
+
+
+                console.log(response);
+                setText(response.data.text);
+
+            }).catch((error) => {
+
+
+                console.log(error)
+
+            })
+
+
+        }, [])
+    */
+
+    const [PostList, setPostList] = useState([]);
 
     useEffect(() => {
 
-        let body = {
-            text: "hello",
-        }
+        axios.post("/api/post/list").then((res) => {
 
-        axios.post("/api/test", body).then((response) => {
+            if (res.data.success) {
+                setPostList([...res.data.postList])
+            }
 
+        }).catch((err) => {
 
-            console.log(response);
-            setText(response.data.text);
-
-        }).catch((error) => {
-
-
-            console.log(error)
-
+            console.log(err);
         })
 
-
-    }, [])
+    }, []);
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <h1>List component!</h1>
-            <h1>{Text}</h1>
-            {props.ContentList.map((content, idx) => {
+        <ListDiv>
+            {PostList.map((post, idx) => {
                 return (
-                    <div key={idx} style={{ width: "100%", marginLeft: "1rem", }}>
-                        내용 : {content}
-                    </div>
+                    <ListItem>
+                        <p className='title'>{post.title}</p>
+                        <p>{post.content}</p>
+                    </ListItem>
                 );
             })}
-        </div>
+        </ListDiv>
     )
 }
 

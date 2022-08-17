@@ -42,8 +42,8 @@ function App() {
         <Fragment>
             <Heading></Heading>
             <Routes>
-                <Route path="/" element={<List ContentList={ContentList} setContentList={setContentList}></List>}></Route>
-                <Route path="/Upload" element={<Upload ContentList={ContentList} setContentList={setContentList}></Upload>}></Route>
+                <Route path="/" element={<List ContentList={ContentList} setContentList={setContentList}></List>} />=
+                <Route path="/Upload" element={<Upload ContentList={ContentList} setContentList={setContentList}></Upload>} />
             </Routes>
 
         </Fragment>
