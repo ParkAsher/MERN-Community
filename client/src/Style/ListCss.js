@@ -26,6 +26,7 @@ const ListItem = styled.div`
             font-weight: bold;
         }
     }
+    
 `;
 
 export { ListDiv, ListItem };

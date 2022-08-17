@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { ListDiv, ListItem } from '../../Style/ListCss';
+import { Link } from 'react-router-dom'
 
 function List(props) {
 
@@ -52,9 +53,11 @@ function List(props) {
         <ListDiv>
             {PostList.map((post, idx) => {
                 return (
-                    <ListItem>
-                        <p className='title'>{post.title}</p>
-                        <p>{post.content}</p>
+                    <ListItem key={idx}>
+                        <Link to={`/post/${post.postNum}`}>
+                            <p className='title'>{post.title}</p>
+                            <p>{post.content}</p>
+                        </Link>
                     </ListItem>
                 );
             })}
