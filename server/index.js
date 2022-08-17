@@ -88,11 +88,18 @@ app.post("/api/test", (req, res) => {
     npm i @emotion/css @emotion/react @emotion/styled
 
 */
-app.post("/api/test", (req, res) => {
+app.post("/api/post/submit", (req, res) => {
 
-    const CommunityPost = new Post({ title: "Test", content: "테스트입니다." })
+    let temp = req.body;
+
+    const CommunityPost = new Post(temp)
 
     CommunityPost.save().then(() => {
-        res.status(200).json({ success: true, text: "안녕하세요" });
+
+        res.status(200).json({ success: true });
+
+    }).catch((err) => {
+
+        res.status(400).json({ success: false });
     })
 })
