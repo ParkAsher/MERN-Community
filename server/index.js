@@ -83,6 +83,10 @@ app.post("/api/test", (req, res) => {
     1. POST MongoDB Model
     2. Client Css (Bootstrap, Emotion)
 
+    client 폴더에서
+    npm i react-bootstrap bootstrap@5
+    npm i @emotion/css @emotion/react @emotion/styled
+
 */
 app.post("/api/test", (req, res) => {
 
