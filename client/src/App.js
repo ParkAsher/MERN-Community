@@ -7,6 +7,7 @@ import Heading from './Component/Heading';
 import List from './Component/Post/List';
 import Upload from './Component/Post/Upload';
 import Detail from './Component/Post/Detail';
+import Edit from './Component/Post/Edit';
 
 
 function App() {
@@ -48,8 +49,8 @@ function App() {
                 <Route path="/" element={<List />} />
                 <Route path="/Upload" element={<Upload />} />
                 <Route path="/post/:postNum" element={<Detail />} />
+                <Route path="/edit/:postNum" element={<Edit />} />
             </Routes>
-
         </Fragment>
 
     );
