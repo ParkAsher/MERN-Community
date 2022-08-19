@@ -9,6 +9,11 @@ const multer = require('multer');
 const { Post } = require('../Model/Post.js');
 const { Counter } = require('../Model/Counter.js');
 
+/*
+    naver cloud platform S3 module
+*/
+const setUpload = require('../Util/upload.js');
+
 router.post("/submit", (req, res) => {
 
     let temp = req.body;
@@ -96,6 +101,7 @@ router.post("/delete", (req, res) => {
     diskStorage : multer로 전달받은 파일을 우리 disk 에 저장을 하겠다.
     destination : 어떤 경로
 */
+/*
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, "image/");
@@ -122,4 +128,15 @@ router.post("/image/upload", (req, res) => {
 })
 
 
-module.exports = router
+/*
+    express middleware 문법
+*/
+router.post("/image/upload", setUpload("mern-react-community/post"), (req, res, next) => {
+
+    res.status(200).json({ success: true, filePath: res.req.file.location })
+})
+
+
+
+
+module.exports = router;
