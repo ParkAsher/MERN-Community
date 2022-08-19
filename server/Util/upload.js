@@ -2,21 +2,23 @@ const AWS = require('aws-sdk');
 
 const endpoint = new AWS.Endpoint('https://kr.object.ncloudstorage.com');
 const region = 'kr-standard';
-const access_key = '9wRk1SNRS74964Y2d50T';
-const secret_key = 'ZMPzv9IKhXO1f4HFt8plBeLDDsOJVQ9RKmI46O8C';
 
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 
 const path = require('path');
 
+/*
+    config
+*/
+const config = require("../config/key.js");
 
 const S3 = new AWS.S3({
     endpoint: endpoint,
     region: region,
     credentials: {
-        accessKeyId: access_key,
-        secretAccessKey: secret_key
+        accessKeyId: config.access_key,
+        secretAccessKey: config.secret_key
     }
 });
 

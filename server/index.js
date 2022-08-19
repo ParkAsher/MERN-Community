@@ -27,6 +27,11 @@ const mongoose = require("mongoose");
 const app = express();
 const port = 5000;
 
+/*
+    config
+*/
+const config = require("./config/key.js");
+
 app.use(express.static(path.join(__dirname, "../client/build")));
 /*
     image를 사용할거다
@@ -44,7 +49,7 @@ app.use("/api/post", require("./Router/post.js"));
 
 
 app.listen(port, () => {
-    mongoose.connect('mongodb+srv://asherpark:test123@cluster0.ixgntvl.mongodb.net/Community?retryWrites=true&w=majority').then(() => {
+    mongoose.connect(config.mongoURI).then(() => {
 
         // 연결 성공했을때
         console.log(`Example app listening at http://localhost:${port}`);
