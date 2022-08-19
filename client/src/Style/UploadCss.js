@@ -40,10 +40,11 @@ const UploadForm = styled.form`
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    input {
+    #title {
         border-radius: 10px;
         border: 1px solid #c6c6c6;
         padding: 10px;
+        margin-bottom: 10px;
         &:active,
         &:focus {
             outline: none;
@@ -77,6 +78,21 @@ const UploadForm = styled.form`
     label {
         font-weight: bold;
         margin-top: 10px;
+    }
+    .uploadedList {
+        width: 100%;
+        height: 40px;
+        margin-top: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content : space-between;
+        line-height: 40px;
+    }
+    p {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
     }
 
 `;

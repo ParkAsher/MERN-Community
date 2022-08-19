@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { UploadButtonDiv, UploadDiv, UploadForm } from '../../Style/UploadCss';
+import ImageUpload from './ImageUpload';
+import { Button } from 'react-bootstrap';
 
 function Edit() {
 
     let params = useParams();
+    let navigate = useNavigate();
 
     const [PostInfo, setPostInfo] = useState({}) // object type
-
     const [Title, setTitle] = useState("");
     const [Content, setContent] = useState("");
-
-    let navigate = useNavigate();
+    const [Image, setImage] = useState("");
 
     useEffect(() => {
 
@@ -37,10 +38,15 @@ function Edit() {
 
         setTitle(PostInfo.title);
         setContent(PostInfo.content);
+        setImage(PostInfo.image);
 
     }, [PostInfo])
 
 
+    // 이미 upload된 이미지 삭제
+    const DeleteUploaded = (e) => {
+        setImage("");
+    }
 
     const onSubmit = (e) => {
 
@@ -55,6 +61,7 @@ function Edit() {
 
             title: Title,
             content: Content,
+            image: Image,
             postNum: params.postNum
         }
 
@@ -72,13 +79,20 @@ function Edit() {
 
     }
 
-
-
     return (
         <UploadDiv>
             <UploadForm>
                 <label htmlFor='title'>제목</label>
                 <input id='title' type="text" value={Title} onChange={(event) => { setTitle(event.currentTarget.value) }}></input>
+                <ImageUpload setImage={setImage}></ImageUpload>
+                {
+                    Image ?
+                        <div className='uploadedList'>
+                            <div><p>Upload : {Image}</p></div>
+                            <Button variant='danger' onClick={(e) => DeleteUploaded(e)}>x</Button>
+                        </div>
+                        : null
+                }
                 <label htmlFor='content'>내용</label>
                 <textarea id="content" value={Content} onChange={(event) => { setContent(event.currentTarget.value) }}></textarea>
                 <UploadButtonDiv>

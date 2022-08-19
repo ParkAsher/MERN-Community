@@ -28,6 +28,10 @@ const app = express();
 const port = 5000;
 
 app.use(express.static(path.join(__dirname, "../client/build")));
+/*
+    image를 사용할거다
+*/
+app.use("/image", express.static("./image"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
