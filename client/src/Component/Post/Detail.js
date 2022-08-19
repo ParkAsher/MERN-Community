@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { Spinner } from 'react-bootstrap';
 import { BtnDiv, Post, PostDiv, SpinnerDiv } from '../../Style/PostDetailCss';
@@ -7,6 +7,7 @@ import { BtnDiv, Post, PostDiv, SpinnerDiv } from '../../Style/PostDetailCss';
 function Detail() {
 
     let params = useParams();
+    let navigate = useNavigate();
 
     const [PostInfo, setPostInfo] = useState({}) // object type
 
@@ -40,6 +41,29 @@ function Detail() {
         console.log(PostInfo)
     }, [PostInfo])
 
+    // 삭제
+    const DeleteHandler = () => {
+
+        if (window.confirm("정말로 삭제 하시겠습니까?")) {
+
+            let body = {
+                postNum: params.postNum,
+            }
+
+            axios.post("/api/post/delete", body).then((res) => {
+
+                if (res.data.success) {
+                    alert("글이 삭제되었습니다.")
+                    navigate("/");
+                }
+
+            }).catch((err) => {
+                console.log(err);
+            })
+
+        }
+
+    }
 
     return (
         <PostDiv>
@@ -54,7 +78,7 @@ function Detail() {
                             <button className='edit'>수정</button>
                         </Link>
 
-                        <button className='delete'>삭제</button>
+                        <button className='delete' onClick={() => DeleteHandler()}>삭제</button>
                     </BtnDiv>
                 </>
             ) : (
