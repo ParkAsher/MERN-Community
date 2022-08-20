@@ -46,6 +46,7 @@ app.use(express.urlencoded({ extended: true }));
     /api/post : post에 관련된 Router
 */
 app.use("/api/post", require("./Router/post.js"));
+app.use("/api/user", require("./Router/user.js"));
 
 
 app.listen(port, () => {
