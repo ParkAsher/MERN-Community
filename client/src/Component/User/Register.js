@@ -30,7 +30,7 @@ function Register() {
             return alert("모든 값을 채워주세요!")
         }
 
-        if (Pw != PwConfirm) {
+        if (Pw !== PwConfirm) {
             return alert("비밀번호와 비밀번호 확인 값은 같아야 합니다.")
         }
 
