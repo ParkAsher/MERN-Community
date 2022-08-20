@@ -3,12 +3,17 @@ import React, { Fragment } from 'react';
     react-router-dom
 */
 import { Routes, Route } from "react-router-dom"
+
+/*
+    Components
+*/
 import Heading from './Component/Heading';
 import List from './Component/Post/List';
 import Upload from './Component/Post/Upload';
 import Detail from './Component/Post/Detail';
 import Edit from './Component/Post/Edit';
-
+import Login from './Component/User/Login';
+import Register from './Component/User/Register';
 
 function App() {
 
@@ -47,9 +52,11 @@ function App() {
             <Heading></Heading>
             <Routes>
                 <Route path="/" element={<List />} />
-                <Route path="/Upload" element={<Upload />} />
+                <Route path="/upload" element={<Upload />} />
                 <Route path="/post/:postNum" element={<Detail />} />
                 <Route path="/edit/:postNum" element={<Edit />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
             </Routes>
         </Fragment>
 

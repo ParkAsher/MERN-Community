@@ -15,13 +15,13 @@ function Heading() {
     return (
         <Navbar bg="dark" expand="lg" variant="dark">
             <Container>
-                <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                <Navbar.Brand href="#home">React-Community</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Link to="/" style={{ color: "white", textDecoration: "none", marginRight: "10px" }}>Home</Link>
                         <Link to="/Upload" style={{ color: "white", textDecoration: "none", marginRight: "10px" }}>Upload</Link>
-                        <Link to="/" style={{ color: "white", textDecoration: "none", marginRight: "10px" }}>List</Link>
+                        <Link to="/login" style={{ color: "white", textDecoration: "none", marginRight: "10px" }}>Login</Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
