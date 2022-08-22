@@ -1,8 +1,9 @@
-import React, { useState, } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UploadButtonDiv, UploadDiv, UploadForm, } from '../../Style/UploadCss.js';
 import ImageUpload from './ImageUpload.js';
-import axios from 'axios'
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 function Upload(props) {
 
@@ -14,6 +15,18 @@ function Upload(props) {
     const [Image, setImage] = useState("");
 
     let navigate = useNavigate();
+
+    const user = useSelector((state) => state.user);
+
+    useEffect(() => {
+
+        if (!user.accessToken) {
+            alert("로그인 한 회원만 글을 작성할 수 있습니다.");
+            navigate("/login")
+        }
+
+    }, [])
+
 
     const onSubmit = (e) => {
 
@@ -28,7 +41,8 @@ function Upload(props) {
 
             title: Title,
             content: Content,
-            image: Image
+            image: Image,
+            uid: user.uid,
         }
 
         axios.post("/api/post/submit", body).then((res) => {
@@ -44,18 +58,6 @@ function Upload(props) {
         })
 
     }
-
-    /*
-        useEffect
-
-        [] : useEffect가 실행될 조건 (빈 배열일때는 실행되거나 죽을때 딱 한번만 실행)
-    */
-
-    /*
-        useEffect(() => {
-            console.log("Content가 바뀌었습니다.");
-        }, [Content]);
-    */
 
     return (
         <UploadDiv>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { Spinner } from 'react-bootstrap';
@@ -8,6 +9,8 @@ function Detail() {
 
     let params = useParams();
     let navigate = useNavigate();
+
+    const user = useSelector((state) => state.user) // 어떤 사용자가 접속해있는지
 
     const [PostInfo, setPostInfo] = useState({}) // object type
 
@@ -71,6 +74,7 @@ function Detail() {
                 <>
                     <Post>
                         <h1>{PostInfo.title}</h1>
+                        <h3>{PostInfo.author.displayName}</h3>
                         {
                             PostInfo.image ?
                                 <img src={PostInfo.image} alt="" style={{ width: "100%", height: "auto" }} />
@@ -78,13 +82,15 @@ function Detail() {
                         }
                         <p>{PostInfo.content}</p>
                     </Post>
-                    <BtnDiv>
-                        <Link to={`/edit/${PostInfo.postNum}`}>
-                            <button className='edit'>수정</button>
-                        </Link>
+                    {user.uid === PostInfo.author.uid &&
+                        <BtnDiv>
+                            <Link to={`/edit/${PostInfo.postNum}`}>
+                                <button className='edit'>수정</button>
+                            </Link>
 
-                        <button className='delete' onClick={() => DeleteHandler()}>삭제</button>
-                    </BtnDiv>
+                            <button className='delete' onClick={() => DeleteHandler()}>삭제</button>
+                        </BtnDiv>
+                    }
                 </>
             ) : (
                 <SpinnerDiv>

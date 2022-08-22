@@ -5,33 +5,6 @@ import { Link } from 'react-router-dom'
 
 function List(props) {
 
-    /*
-        const [Text, setText] = useState("")
-    
-
-        useEffect(() => {
-
-            let body = {
-                text: "hello",
-            }
-
-            axios.post("/api/test", body).then((response) => {
-
-
-                console.log(response);
-                setText(response.data.text);
-
-            }).catch((error) => {
-
-
-                console.log(error)
-
-            })
-
-
-        }, [])
-    */
-
     const [PostList, setPostList] = useState([]);
 
     useEffect(() => {
@@ -56,6 +29,7 @@ function List(props) {
                     <ListItem key={idx}>
                         <Link to={`/post/${post.postNum}`}>
                             <p className='title'>{post.title}</p>
+                            <p className='author'>{post.author.displayName}</p>
                             <p>{post.content}</p>
                         </Link>
                     </ListItem>
