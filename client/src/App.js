@@ -1,9 +1,17 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 /*
     react-router-dom
 */
 import { Routes, Route } from "react-router-dom"
-
+/*
+    redux
+*/
+import { useDispatch } from "react-redux";
+import { loginUser, clearUser } from './Reducer/userSlice';
+/*
+    Firebase
+*/
+import firebase from './firebase.js';
 /*
     Components
 */
@@ -18,37 +26,26 @@ import Register from './Component/User/Register';
 
 function App() {
 
-    /*
-        1. 가정문 : if-else, switch  => 삼항연산자 ? :
-        2. 반복문 : for              => map
-    */
+    const dispatch = useDispatch();
 
-    /*    
-        let flag = true;
+    useEffect(() => {
 
-        let Arr = [1, 2, 3]
-    */
+        firebase.auth().onAuthStateChanged((userInfo) => {
 
-    /*
-        const [ContentList, setContentList] = useState([]);
-    */
+
+            if (userInfo !== null) {
+                // login
+                dispatch(loginUser(userInfo.multiFactor.user));
+            } else {
+                // logout or not login
+                dispatch(clearUser())
+            }
+        });
+
+    }, [])
 
     return (
-        /*
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <h1>hello, react!</h1>
-            {
-                flag ? "참입니다." : "거짓입니다."
-            }
-            {
-                // key로 idx를 주는것이 원칙
-                Arr.map((element, idx) => {
-                    return <p>{element}</p>
-                })
-            }
-            <Test></Test>
-        </div>
-        */
+
         <Fragment>
             <Heading></Heading>
             <Routes>
