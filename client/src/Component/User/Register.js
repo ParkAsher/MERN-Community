@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import LoginDiv from '../../Style/UserCss'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
-
+import { useSelector } from 'react-redux';
 /*
     firebase
 */
@@ -12,12 +12,25 @@ function Register() {
 
     let navigate = useNavigate();
 
+    const user = useSelector((state) => state.user);
+
     const [Name, setName] = useState("");
     const [Email, setEmail] = useState("");
     const [Pw, setPW] = useState("");
     const [PwConfirm, setPwConfirm] = useState("");
 
     const [Flag, setFlag] = useState(false);
+
+    const [NameCheck, setNameCheck] = useState(false);
+    const [NameInfo, setNameInfo] = useState("");
+
+    useEffect(() => {
+
+        if (user.accessToken) {
+            navigate("/");
+        }
+
+    }, [])
 
 
     const Registerfunc = async (e) => {
@@ -33,6 +46,11 @@ function Register() {
         if (Pw !== PwConfirm) {
             return alert("비밀번호와 비밀번호 확인 값은 같아야 합니다.")
         }
+
+        if (!NameCheck) {
+            return alert("닉네임 중복검사를 진행해 주세요.");
+        }
+
 
         let createUser = await firebase.auth().createUserWithEmailAndPassword(Email, Pw);
 
@@ -66,11 +84,39 @@ function Register() {
         })
     }
 
+    const NameCheckFunc = (e) => {
+        e.preventDefault();
+
+        if (!Name) {
+            return alert("닉네임을 입력해 주세요.");
+        }
+
+        let body = {
+            displayName: Name,
+        }
+
+        axios.post("/api/user/namecheck", body).then((res) => {
+
+            if (res.data.success) {
+
+                if (res.data.check) {
+                    setNameCheck(true);
+                    setNameInfo("사용가능한 닉네임 입니다.")
+                } else {
+                    setNameInfo("사용 불가능한 닉네임 입니다.")
+                }
+
+            }
+        })
+    }
+
     return (
         <LoginDiv>
             <form>
-                <label htmlFor='name'>이름</label>
+                <label htmlFor='name'>닉네임</label>
                 <input type="name" value={Name} onChange={(e) => { setName(e.currentTarget.value) }} ></input>
+                {NameInfo}
+                <button onClick={(e) => NameCheckFunc(e)}>닉네임 중복검사</button>
                 <label htmlFor='email'>이메일</label>
                 <input type="email" value={Email} onChange={(e) => { setEmail(e.currentTarget.value) }}></input>
                 <label htmlFor='password'>비밀번호</label>
