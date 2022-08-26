@@ -1,31 +1,25 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React from 'react'
 import { ListDiv, ListItem } from '../../Style/ListCss';
 import { Link } from 'react-router-dom'
 import Avatar from 'react-avatar';
 
+import moment from 'moment';
+import "moment/locale/ko";
+
 function List(props) {
 
-    const [PostList, setPostList] = useState([]);
+    const setTime = (a, b) => {
 
-    useEffect(() => {
-
-        axios.post("/api/post/list").then((res) => {
-
-            if (res.data.success) {
-                setPostList([...res.data.postList])
-            }
-
-        }).catch((err) => {
-
-            console.log(err);
-        })
-
-    }, []);
+        if (a !== b) {
+            return moment(b).format("YYYY년 MMMM Do, hh:mm") + " (수정됨)";
+        } else {
+            return moment(a).format("YYYY년 MMMM Do, hh:mm");
+        }
+    }
 
     return (
         <ListDiv>
-            {PostList.map((post, idx) => {
+            {props.PostList.map((post, idx) => {
                 return (
                     <ListItem key={idx}>
                         <Link to={`/post/${post.postNum}`}>
@@ -34,6 +28,7 @@ function List(props) {
                                 {post.author.displayName}
                             </p>
                             <p>{post.content}</p>
+                            <p>{setTime(post.createdAt, post.updatedAt)}</p>
                         </Link>
                     </ListItem>
                 );

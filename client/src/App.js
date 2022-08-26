@@ -16,7 +16,8 @@ import firebase from './firebase.js';
     Components
 */
 import Heading from './Component/Heading';
-import List from './Component/Post/List';
+import MainPage from './Component/MainPage';
+
 import Upload from './Component/Post/Upload';
 import PostArea from './Component/Post/PostArea';
 import Edit from './Component/Post/Edit';
@@ -50,7 +51,7 @@ function App() {
         <Fragment>
             <Heading></Heading>
             <Routes>
-                <Route path="/" element={<List />} />
+                <Route path="/" element={<MainPage />} />
                 <Route path="/upload" element={<Upload />} />
                 <Route path="/post/:postNum" element={<PostArea />} />
                 <Route path="/edit/:postNum" element={<Edit />} />
