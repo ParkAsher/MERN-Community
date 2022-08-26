@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux'
     firebase
 */
 import firebase from '../firebase.js'
+import { loginUser } from '../Reducer/userSlice.js'
 
 
 
@@ -44,8 +45,17 @@ function Heading() {
                 </Navbar.Collapse>
                 <Navbar.Collapse className='justify-content-end'>
                     {
-                        user.accessToken ? <Navbar.Text style={{ color: "white", cursor: "pointer" }} onClick={() => LogoutHandler()}>Logout</Navbar.Text>
-                            : <Link to="/login" style={{ color: "white", textDecoration: "none" }}>Login</Link>
+                        user.accessToken ? (
+                            <>
+                                <Navbar.Text style={{ color: "white", cursor: "pointer", marginRight: "10px" }} onClick={() => LogoutHandler()}>Logout</Navbar.Text>
+                                <br />
+                                <Navbar.Text style={{ color: "white", cursor: "pointer" }}>
+                                    <Link to="/MyPage" style={{ color: "white", textDecoration: "none" }}>MyPage</Link>
+                                </Navbar.Text>
+                            </>
+                        ) : (
+                            <Link to="/login" style={{ color: "white", textDecoration: "none" }}>Login</Link>
+                        )
                     }
                 </Navbar.Collapse>
             </Container>

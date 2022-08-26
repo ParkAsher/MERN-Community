@@ -23,6 +23,7 @@ import Edit from './Component/Post/Edit';
 
 import Login from './Component/User/Login';
 import Register from './Component/User/Register';
+import MyPage from './Component/User/MyPage';
 
 function App() {
 
@@ -55,6 +56,7 @@ function App() {
                 <Route path="/edit/:postNum" element={<Edit />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/MyPage" element={<MyPage />} />
             </Routes>
         </Fragment>
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { ListDiv, ListItem } from '../../Style/ListCss';
 import { Link } from 'react-router-dom'
+import Avatar from 'react-avatar';
 
 function List(props) {
 
@@ -29,7 +30,9 @@ function List(props) {
                     <ListItem key={idx}>
                         <Link to={`/post/${post.postNum}`}>
                             <p className='title'>{post.title}</p>
-                            <p className='author'>{post.author.displayName}</p>
+                            <p className='author'>
+                                {post.author.displayName}
+                            </p>
                             <p>{post.content}</p>
                         </Link>
                     </ListItem>

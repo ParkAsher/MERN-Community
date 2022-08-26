@@ -25,6 +25,10 @@ const ListItem = styled.div`
         .title {
             font-weight: bold;
         }
+        .author {
+            font-weight: bold;
+            color: lightgrey;
+        }
     }
     
 `;

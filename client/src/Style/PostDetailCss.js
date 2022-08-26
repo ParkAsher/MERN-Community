@@ -28,8 +28,10 @@ const Post = styled.div`
     h1 {
         font-weight: bold;
     }
-    p {
-        margin-bottom: 0px;
+    .author {
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: lightgrey;
     }    
 `;
 

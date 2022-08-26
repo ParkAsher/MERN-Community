@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { BtnDiv, Post, PostDiv } from '../../Style/PostDetailCss';
+import Avatar from 'react-avatar';
 
 function Detail(props) {
 
@@ -39,7 +40,14 @@ function Detail(props) {
         <PostDiv>
             <Post>
                 <h1>{props.PostInfo.title}</h1>
-                <h3>{props.PostInfo.author.displayName}</h3>
+                <div style={{ display: "flex" }}>
+                    <div style={{ height: "40px", display: "table" }}>
+                        <Avatar size='20' round={true} src={props.PostInfo.author.photoURL} style={{ paddingTop: "3px", verticalAlign: "middle" }}></Avatar>
+                    </div>
+                    <div style={{ height: "40px", display: "table", marginLeft: "5px" }}>
+                        <p className='author' style={{ display: "table-cell", height: "40px", verticalAlign: "middle" }}> {props.PostInfo.author.displayName}</p>
+                    </div>
+                </div>
                 {
                     props.PostInfo.image ?
                         <img src={props.PostInfo.image} alt="" style={{ width: "100%", height: "auto" }} />
@@ -47,7 +55,8 @@ function Detail(props) {
                 }
                 <p>{props.PostInfo.content}</p>
             </Post>
-            {user.uid === props.PostInfo.author.uid &&
+            {
+                user.uid === props.PostInfo.author.uid &&
                 <BtnDiv>
                     <Link to={`/edit/${props.PostInfo.postNum}`}>
                         <button className='edit'>수정</button>
@@ -57,7 +66,7 @@ function Detail(props) {
                 </BtnDiv>
             }
 
-        </PostDiv>
+        </PostDiv >
     )
 }
 

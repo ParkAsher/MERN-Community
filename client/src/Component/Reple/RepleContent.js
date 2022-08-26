@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { RepleContentDiv, RepleUploadDiv } from '../../Style/RepleCss';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import Avatar from 'react-avatar';
 
 function RepleContent(props) {
 
@@ -30,7 +31,9 @@ function RepleContent(props) {
         axios.post("/api/reple/edit", body).then((res) => {
 
             if (res.data.success) {
+                console.log(props.reple.author.photoURL);
                 alert("댓글 수정이 성공하였습니다.");
+
             } else {
                 alert("댓글 수정이 실패하였습니다.");
             }
@@ -69,7 +72,14 @@ function RepleContent(props) {
         <div>
             <RepleContentDiv>
                 <div className='author'>
-                    <p>{props.reple.author.displayName}</p>
+                    <div style={{ display: "flex", marginLeft: "10px" }}>
+                        <div style={{ height: "40px", display: "table" }}>
+                            <Avatar size='20' round={true} src={props.reple.author.photoURL} style={{ paddingTop: "3px", verticalAlign: "middle" }}></Avatar>
+                        </div>
+                        <div style={{ height: "40px", display: "table", marginLeft: "5px" }}>
+                            <p style={{ display: "table-cell", height: "40px", verticalAlign: "middle" }}> {props.reple.author.displayName}</p>
+                        </div>
+                    </div>
                     {
                         props.reple.author.uid === user.uid && (
 
@@ -86,22 +96,24 @@ function RepleContent(props) {
                         )
                     }
                 </div>
-                {EditFlag ? (
-                    <RepleUploadDiv>
-                        <form>
-                            <input type='text' value={Reple} onChange={(e) => { setReple(e.currentTarget.value) }}></input>
-                            <button onClick={(e) => { SubmitHandler(e) }}>등록</button>
+                {
+                    EditFlag ? (
+                        <RepleUploadDiv>
+                            <form>
+                                <input type='text' value={Reple} onChange={(e) => { setReple(e.currentTarget.value) }}></input>
+                                <button onClick={(e) => { SubmitHandler(e) }}>등록</button>
 
-                        </form>
-                        <div className='cancel'>
-                            <button onClick={(e) => { e.preventDefault(); setEditFlag(false); }}>취소</button>
-                        </div>
-                    </RepleUploadDiv>
-                ) : (
-                    <p>{props.reple.reple}</p>
-                )}
-            </RepleContentDiv>
-        </div>
+                            </form>
+                            <div className='cancel'>
+                                <button onClick={(e) => { e.preventDefault(); setEditFlag(false); }}>취소</button>
+                            </div>
+                        </RepleUploadDiv>
+                    ) : (
+                        <p>{props.reple.reple}</p>
+                    )
+                }
+            </RepleContentDiv >
+        </div >
     )
 }
 

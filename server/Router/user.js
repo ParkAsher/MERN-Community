@@ -6,6 +6,8 @@ var router = express.Router();
 const { Counter } = require("../Model/Counter");
 const { User } = require("../Model/User");
 
+const setUpload = require("../Util/upload.js");
+
 router.post("/register", (req, res) => {
     console.log(req.body);
 
@@ -43,6 +45,31 @@ router.post("/namecheck", (req, res) => {
     }).catch((err) => {
         res.status(400).json({ success: false })
     })
+})
+
+router.post("/profile/image", setUpload("mern-react-community/user"), (req, res, next) => {
+
+    console.log(res.req);
+    res.status(200).json({ success: true, filePath: res.req.file.location })
+})
+
+router.post("/profile/update", (req, res) => {
+
+    let temp = {
+        photoURL: req.body.photoURL
+    }
+
+    console.log(temp);
+
+    User.updateOne({ uid: req.body.uid }, { $set: temp }).exec().then(() => {
+
+        res.status(200).json({ success: true })
+
+    }).catch((err) => {
+
+        res.status(400).json({ success: false })
+    })
+
 })
 
 

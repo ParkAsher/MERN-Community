@@ -56,6 +56,7 @@ function Register() {
 
         await createUser.user.updateProfile({
             displayName: Name,
+            photoURL: "https://kr.object.ncloudstorage.com/mern-react-community/default-profile/defultProfile.png"
         })
 
         console.log(createUser.user);
@@ -65,6 +66,7 @@ function Register() {
             email: createUser.user.multiFactor.user.email,
             displayName: createUser.user.multiFactor.user.displayName,
             uid: createUser.user.multiFactor.user.uid,
+            photoURL: "https://kr.object.ncloudstorage.com/mern-react-community/default-profile/defultProfile.png"
 
         }
 
