@@ -1,6 +1,6 @@
 ﻿# [Inflearn] MERN STACK Community
  2022-08-14 Start  
- 2022-08-14 End  
+ 2022-08-27 End  
 
 react@18.2.0  
 react-router-dom@6.3.0  
